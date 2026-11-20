@@ -1,0 +1,7 @@
+TechNova — Cloudflare Workers
+Build command: npm run build
+Deploy command: npx wrangler deploy
+Root directory: /
+O wrangler.jsonc aponta assets.directory para ./out.
+Alternativa sem baixar este ZIP: use deploy command npx wrangler deploy --assets ./out
+Firebase: habilite Authentication e configure public/firebase-config.json.
