@@ -12,7 +12,7 @@
   "d1_databases": [{
     "binding": "DB",
     "database_name": "technova-db",
-    "database_id": "COLE_AQUI_O_ID_DO_SEU_D1",
+    "database_id": "01e24ff8-0072-40d6-b054-1eaeafdd9307",
     "migrations_dir": "migrations"
   }],
   "vars": {"ADMIN_EMAIL": ""}
