@@ -15,10 +15,10 @@ export default function ContaPage() {
   async function handle(e) {
     e.preventDefault(); setError(""); setMessage("");
     if (mode === "register" && password !== confirm) { setError("As senhas não conferem."); return; }
-    if (mode === "register" && password.length < 6) { setError("A senha precisa ter ao menos 6 caracteres."); return; }
+    if (mode === "register" && password.length < 10) { setError("A senha precisa ter ao menos 10 caracteres."); return; }
     setBusy(true);
     try {
-      if (mode === "reset") { await resetPassword(email.trim()); setMessage("Se o e-mail estiver cadastrado, você receberá instruções para redefinir a senha."); }
+      if (mode === "reset") { await resetPassword(email.trim()); setMessage("A recuperação foi solicitada."); }
       else if (mode === "register") await register(email.trim(), password);
       else await login(email.trim(), password);
       setPassword(""); setConfirm("");
@@ -39,14 +39,14 @@ export default function ContaPage() {
         <h1 className="text-2xl font-extrabold text-nova-navy">{mode === "login" ? "Entrar na TechNova" : mode === "register" ? "Criar conta" : "Recuperar senha"}</h1>
         <p className="mt-2 text-sm text-slate-600">Você pode navegar pela loja sem entrar. O cadastro é opcional.</p>
         {!configured && <div role="alert" className="mt-5 rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-          O cadastro real ainda não foi ativado. Configure a chave Firebase no arquivo <code>public/firebase-config.json</code> conforme o README do projeto.
+          O serviço de contas está indisponível. Confira o banco D1 do Cloudflare e a configuração do Worker.
         </div>}
         <form onSubmit={handle} className="mt-6 space-y-4">
           <label className="block text-sm font-semibold text-slate-800">E-mail
             <input required type="email" autoComplete="email" value={email} onChange={e=>setEmail(e.target.value)} className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-3" placeholder="voce@email.com" />
           </label>
           {mode !== "reset" && <label className="block text-sm font-semibold text-slate-800">Senha
-            <input required type="password" minLength={mode === "register" ? 6 : undefined} autoComplete={mode === "register" ? "new-password" : "current-password"} value={password} onChange={e=>setPassword(e.target.value)} className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-3" placeholder="Pelo menos 6 caracteres" />
+            <input required type="password" minLength={mode === "register" ? 10 : undefined} autoComplete={mode === "register" ? "new-password" : "current-password"} value={password} onChange={e=>setPassword(e.target.value)} className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-3" placeholder="Pelo menos 10 caracteres" />
           </label>}
           {mode === "register" && <label className="block text-sm font-semibold text-slate-800">Confirmar senha
             <input required type="password" autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} className="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-3" />
